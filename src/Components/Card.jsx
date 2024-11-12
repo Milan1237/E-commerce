@@ -1,31 +1,40 @@
-import React from 'react'
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../slices/ProudctSlice";
 
-const Card = ({}) => {
+const Card = ({product}) => {
+     const dispatch = useDispatch();
+     const {cart} = useSelector(state=>state.product);
+     console.log(product);
+     const { image, title, price, category, rating } = product ; 
+     
   return (
-    <div class="card card-vertical d-flex direction-column relative">
-     <div class="card-image-container relative">
-          <img class="card-image" src="/assets/shoes.jpg" alt="card"/>
-          <small class="c-badge bg-primary absolute left-0">Trending</small>
-     </div>
-     <div class="card-details">
-          <div class="card-title">Premium Collection</div>
-          <div class="card-description">
-               <p class="card-des">Men Sneakers</p>
-               <p class="card-price">
-                  Rs. 1750
-                  <span class="price-strike-through">Rs. 2499</span>
-                  <span class="discount">(30% OFF)</span>
-               </p>
+    <div className="card card-vertical d-flex direction-column relative bg-[#1a1a1a] text-[var(--text-color-primary)]">
+      <div className="card-image-container relative flex justify-center">
+        <img className="card-image object-contain h-[250px]" src={image} alt="card" />
+      </div>
+      <div className="card-details">
+        <div className="card-title">
+          {title?.length > 20 ? title.substring(0, 20) + "..." : title}
+        </div>
+        <div className="card-description">
+          <p className="card-des">{category}</p>
+          <div className="flex justify-between">
+            <p className="card-price">$ {price}</p>
+            <p className="card-rating flex items-center">
+              {" "}
+              <span class="material-icons-outlined text-[orange]">star</span> {rating.rate}
+            </p>
           </div>
-          <div class="cta-btn">
-               <button class="button btn-primary btn-icon cart-btn d-flex                          align-center justify-center gap cursor btn-margin">
-                       <img src="/assets/cart-white.png" alt="cart"/> 
-                 Add To Cart
-               </button>
-          </div>
-     </div>
-</div>
-  )
-}
+        </div>
+        <div className="cta-btn">
+          <button onClick={()=> dispatch(setCart())} className="button btn-primary btn-icon cart-btn d-flex align-center justify-center gap cursor btn-margin">
+            Add To Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Card
+export default Card;

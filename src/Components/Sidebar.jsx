@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <aside className="fixed top-14 border-[#333333] border-r-2 text-[var(--text-color-primary)] bg-[#1a1a1a] py-2 px-6 w-fit"  >
+    <aside className="fixed top-[3.75rem] z-10 border-[#333333] border-r-2 text-[var(--text-color-primary)] bg-[#1a1a1a] py-2 px-6 w-fit"  >
       {/* price Section */}
       <div>
         <h1 className="text-2xl ">Price</h1>
