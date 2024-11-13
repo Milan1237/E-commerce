@@ -7,6 +7,7 @@ import Home from './pages/Home.jsx'
 import Prouduct from './pages/Prouduct.jsx'
 import {Provider} from 'react-redux'
 import store from './store/Store.js'
+import Cart from './pages/Cart.jsx'
 
 const router = createBrowserRouter([
   {
@@ -18,11 +19,19 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: 'products',
+        path: '/products',
         element: <Prouduct />
-      }
-    ]
-  }
+      } , 
+      
+    ],
+
+  },
+  
+    {
+      path: '/cart',
+      element: <Cart/>
+    }
+  
 ] ,  {
   future: {
     v7_fetcherPersist: true,

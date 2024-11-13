@@ -13,8 +13,8 @@
   --secondary-color: #caebf2;
   --secondary-color: #3BFFFB;
   --background-color: #3a3a3a;
-  --text-color-primary: #e0e0e0;
-  --text-color-secondary: #F8FAFC;
+  --text-color-primary: #efeded;
+  --text-color-secondary: #707171;
   --accent-color: #a9a9a9;
   --border-color: #e5e7eb;
   --success: #27ae60;
@@ -39,4 +39,42 @@
 }
 body{
   background-color: #121212;
+}
+.justify-center{
+  display: flex;
+  justify-content: center;
+}
+.justify-between{
+  display: flex;
+  justify-content: space-between;
+}
+#container{
+  margin: 30px auto;
+}
+
+
+.main-card-container{
+  display: flex;
+}
+
+.final-price {
+  min-width: 25rem;
+  background-color: var(--card-background);
+  align-self: flex-start;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.side-bar {
+  width: 20rem;
+  position: fixed;
+}
+
+.fliterBox{
+  display: flex;
+  flex-direction: column;
+  min-width: 15rem;
+  padding: 20px;
+  gap: 10px;
 }
