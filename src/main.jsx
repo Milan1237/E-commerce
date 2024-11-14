@@ -19,6 +19,10 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
+        path: '/cart',
+        element: <Cart/>
+      },
+      {
         path: '/products',
         element: <Prouduct />
       } , 
@@ -27,10 +31,7 @@ const router = createBrowserRouter([
 
   },
   
-    {
-      path: '/cart',
-      element: <Cart/>
-    }
+    
   
 ] ,  {
   future: {

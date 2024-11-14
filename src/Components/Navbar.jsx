@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const Navbar = () => {
   const {cart} = useSelector(state=> state.product);
+  
   return (
     <header className=" fixed z-10 w-full top-0 flex items-center px-[20px] justify-between bg-[#1a1a1a] border-[#333333] border-b-2">
       <Link to={'/'} className=" flex items-center ">
