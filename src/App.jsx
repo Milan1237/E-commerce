@@ -1,10 +1,8 @@
 import './App.css'
 import Navbar from './Components/Navbar'
 import { Outlet } from 'react-router-dom'
-
+import {conf} from './config/conf.js'
 function App() {
-  
-
   return (
     <>
       <Navbar />

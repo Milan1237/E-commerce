@@ -1,11 +1,20 @@
 import React from "react";
 import NavLogo from "../assets/NavLogo/NavLogo.png";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { LogOut } from "../slices/AuthSlice";
+import authService from "../appwrite/authService";
 const Navbar = () => {
   const {cart} = useSelector(state=> state.product);
-  
+  const {isLoggedIn} = useSelector(state => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  async function logOut(){
+    dispatch(LogOut()); 
+    await authService.logOut();
+  }
   return (
     <header className=" fixed z-10 w-full top-0 flex items-center px-[20px] justify-between bg-[#1a1a1a] border-[#333333] border-b-2">
       <Link to={'/'} className=" flex items-center ">
@@ -17,6 +26,10 @@ const Navbar = () => {
         </h1>
       </Link>
       <div className=" flex gap-4 ">
+
+        <div>
+          <button onClick={() => isLoggedIn ? logOut()   : navigate('/login')} className="bg-[var(--primary-color)] py-[.5rem] px-4 mr-4 rounded-[.25rem] text-[var(--text-color-primary)] font-bold">{isLoggedIn ? 'Logout' : 'Login'}</button>
+        </div>
         <NavLink to={"/cart"} className='relative'>
           {({ isActive }) => (
             <>
@@ -37,11 +50,11 @@ const Navbar = () => {
             favorite
           </span>
         </NavLink>
-        <NavLink to={"/profile"}>
+        {/* <NavLink to={"/profile"}>
           <span className="material-icons cursor-pointer text-[var(--text-color-primary)] text-3xl ease-in-out transition duration-500 hover:text-[var(--primary-color)]  hover:scale-125">
             person
           </span>
-        </NavLink>
+        </NavLink> */}
       </div>
     </header>
   );
