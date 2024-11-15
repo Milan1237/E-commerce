@@ -2,9 +2,9 @@ import React from "react";
 import authService from "../appwrite/authService";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {LogIn} from '../slices/AuthSlice'
+import { LogIn, setUserData } from "../slices/AuthSlice";
 
-const AuthForm = ({pageType}) => {
+const AuthForm = ({ pageType }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   async function formSubmit(e) {
@@ -13,30 +13,38 @@ const AuthForm = ({pageType}) => {
     let formData = {};
 
     for (const [key, value] of data.entries()) {
-        formData = {...formData , [key]: value} ; 
+      formData = { ...formData, [key]: value };
     }
-    console.log(formData);
-    if(pageType=='login'){
+    if (pageType == "login") {
       try {
         const data = await authService.Login(formData);
-        dispatch(LogIn());
-        data && navigate('/') ; 
+        const userData =  data && await authService.getCurrentAccount();
+        userData && dispatch(setUserData(userData));
+        data && dispatch(LogIn());
+        data && navigate("/");
       } catch (error) {
         console.log(error);
       }
-      
+    } else {
+      try {
+        const result = await authService.createUser(formData);
+        const userData =  result && await authService.getCurrentAccount();
+        userData && dispatch(setUserData(userData));
+        if (result) {
+          dispatch(LogIn());
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-    else{
-      await authService.createUser(formData);
-    }
-    
   }
 
   return (
     <div className="flex min-h-full m-auto flex-col justify-center py-8 ">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-5 text-center text-2xl/9 font-bold tracking-tight text-indigo-600">
-          {pageType == 'login' ? 'Login' : 'Create Your Account'}
+          {pageType == "login" ? "Login" : "Create Your Account"}
         </h2>
       </div>
 
@@ -47,7 +55,7 @@ const AuthForm = ({pageType}) => {
           method="POST"
           onSubmit={formSubmit}
         >
-          <div className={pageType == 'login' && 'hidden' }>
+          <div className={pageType == "login" && "hidden"}>
             <label
               htmlFor="name"
               className="block text-sm/6 font-medium text-indigo-600"
@@ -59,8 +67,8 @@ const AuthForm = ({pageType}) => {
                 id="name"
                 name="name"
                 type="name"
-                required = {pageType == 'signup'}
-                disabled = {pageType == 'login'}
+                required={pageType == "signup"}
+                disabled={pageType == "login"}
                 className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
               />
             </div>
@@ -114,13 +122,15 @@ const AuthForm = ({pageType}) => {
           </div>
 
           <p className="mt-5 text-center text-sm/6 text-gray-500">
-          {pageType == 'login' ? "don't Have an Account ? " : 'Already Have an account' }
-            
+            {pageType == "login"
+              ? "don't Have an Account ? "
+              : "Already Have an account"}
+
             <Link
-              to={pageType == 'login' ? '/signup' : '/login' }
+              to={pageType == "login" ? "/signup" : "/login"}
               className="font-semibold text-indigo-600 hover:text-indigo-500"
             >
-              {pageType == 'login' ? ' SignUp' : ' Login'}
+              {pageType == "login" ? " SignUp" : " Login"}
             </Link>
           </p>
         </form>

@@ -12,7 +12,7 @@ const authSlice = createSlice({
             return {...state , isLoggedIn: true }
         },
         LogOut: (state)=>{
-            return {...state , isLoggedIn: false}
+            return {...state , isLoggedIn: false , userData: null}
         },
         setUserData: (state , action)=>{
             state.userData = action.payload ; 

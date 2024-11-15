@@ -24,8 +24,8 @@ class authConfig {
 
         } catch (error) {
             console.log('no users is logged in');
-            return null ; 
-        } 
+            return null;
+        }
     }
 
     async createUser({
@@ -35,14 +35,29 @@ class authConfig {
     }) {
         try {
             const newAccount = await this.account.create(ID.unique(), email, password, name);
-            if (newAccount) this.Login({
-                email,
-                password
-            });
+            if (newAccount) {
+                return this.Login({
+                    email,
+                    password
+                })
+            };
 
         } catch (error) {
-            console.log('got error while creating user');
-            console.log(error);
+            if(error.code == 400){
+                alert(`Please make sure:
+                    * password is strong , 
+                    * valid email Format,
+                    * and Valid Name
+                `)
+            }
+            else if(error.code == 409){
+                alert(
+                    `This email has already an account please login`
+                )
+            }
+            else if(error.code == 500){
+                alert('internal server error occured try after some time');
+            }
         }
         return null;
     }
@@ -55,8 +70,12 @@ class authConfig {
             const account = await this.account.createEmailPasswordSession(email, password);
             return account;
         } catch (error) {
-            console.log(error);
-            console.log('got error while login')
+            if(error.code==401){
+                alert('Invalid Email or Password');
+            }else if(error.code =='404'){
+                alert('User Does not exist please sign up')
+            }
+            return null ; 
         }
     }
 
