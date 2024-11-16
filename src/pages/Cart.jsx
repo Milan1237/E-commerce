@@ -3,13 +3,11 @@ import { useSelector } from "react-redux";
 import HorizontalCard from "../Components/HorizontalCard";
 import { Link } from "react-router-dom";
 import PriceDetails from "../Components/PriceDetails";
-import Navbar from "../Components/Navbar";
 
 const Cart = () => {
   const { cart } = useSelector((state) => state.product);
   return (
     <>
-    <Navbar />
       <div className="top-[4rem] relative flex justify-between w-full px-6">
         {cart.length === 0 && (
           <div className="flex flex-col justify-center items-center w-full">
