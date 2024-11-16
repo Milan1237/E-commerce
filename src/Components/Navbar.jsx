@@ -17,11 +17,11 @@ const Navbar = () => {
     await authService.logOut();
   }
   return (
-    <header className=" fixed z-10 w-full top-0 flex items-center px-[20px] justify-between bg-[#1a1a1a] border-[#333333] border-b-2">
+    <header className=" min-h-[58px] fixed z-10 w-full top-0 flex items-center px-[20px] justify-between bg-[#1a1a1a] border-[#333333] border-b-2">
       <Link to={"/"} className=" flex items-center ">
-        <img src={NavLogo} alt="NavLogo" className="w-[70px] " />
+        <img src={NavLogo} alt="NavLogo" className="sm:w-[70px] w-[50px] " />
         <h1
-          className={` font-['Montserrat'] text-[var(--primary-color)] font-bold text-3xl`}
+          className={` font-['Montserrat'] text-[var(--primary-color)] font-bold sm:text-3xl text-2xl`}
         >
           NexCart
         </h1>
@@ -31,12 +31,12 @@ const Navbar = () => {
         {userData && (
           <div>
             <h2 className="text-[var(--primary-color)] font-bold ">
-              HI! {userData?.name}
+              Hi! {userData?.name}
             </h2>
           </div>
         )}
 
-        <div>
+        <div className="hidden sm:block ">
           <button
             onClick={() => (isLoggedIn ? logOut() : navigate("/login"))}
             className="bg-[var(--primary-color)] py-[.5rem] px-4 mr-4 rounded-[.25rem] text-[var(--text-color-primary)] font-bold"
@@ -45,7 +45,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        <NavLink to={"/cart"} className="relative">
+        <NavLink to={"/cart"} className="relative hidden sm:block">
           {({ isActive }) => (
             <>
               <span
@@ -66,10 +66,15 @@ const Navbar = () => {
           )}
         </NavLink>
         <NavLink to={"/wishlist"}>
-          <span className="material-icons cursor-pointer transition duration-500 hover:text-[var(--primary-color)] text-[var(--text-color-primary)] text-3xl  hover:scale-125">
+          <span className="hidden sm:block material-icons cursor-pointer transition duration-500 hover:text-[var(--primary-color)] text-[var(--text-color-primary)] text-3xl  hover:scale-125">
             favorite
           </span>
         </NavLink>
+        
+          <span className="block sm:hidden material-icons cursor-pointer transition duration-500 hover:text-[var(--primary-color)] text-[var(--text-color-primary)] text-3xl  hover:scale-125">
+            menu
+          </span>
+        
         
       </div>
     </header>

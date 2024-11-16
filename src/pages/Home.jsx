@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import { getProducts } from "../api/getProducts";
 import { useDispatch } from "react-redux";
 import { setProducts } from "../slices/ProudctSlice";
@@ -76,9 +76,9 @@ const Home = () => {
       </div>
 
       {/* banner image */}
-      <div id="bannerImage" className="m-auto">
+      <Link to={'/products'} id="bannerImage" className="m-auto">
         <img src={banner} alt="banner" />
-      </div>
+      </Link>
     </>
   );
 };
