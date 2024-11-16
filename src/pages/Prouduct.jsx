@@ -4,6 +4,7 @@ import { getProducts } from "../api/getProducts";
 import Card from "../Components/Card";
 import Sidebar from "../Components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
+import { filterProductByCategory } from "../utils/filterFunctions";
 import {
   setProducts,
   setCategories,
@@ -12,7 +13,7 @@ import {
 import { getCategories } from "../api/getProducts";
 
 const Prouduct = () => {
-  const { products: product } = useSelector((state) => state.product);
+  const { products: product , selectedCategory , allProducts } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   useEffect(() => {
     if (product.length === 0) {
@@ -21,12 +22,15 @@ const Prouduct = () => {
           getProducts(),
           getCategories(),
         ]);
-        // const data = await getProducts();
-        // const category = await getCategories();
         dispatch(setProducts(data));
         dispatch(setAllProducts(data));
         dispatch(setCategories(category));
       })();
+    }
+    else{
+        const pro = filterProductByCategory({category: selectedCategory , allProducts});
+        console.log(pro);
+        dispatch(setProducts(pro)) ; 
     }
   }, []);
   return (
