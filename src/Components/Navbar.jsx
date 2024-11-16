@@ -1,5 +1,5 @@
 import React from "react";
-import NavLogo from "../assets/NavLogo/NavLogo.png";
+import NavLogo from "../assets/NavLogo/navLogo.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
